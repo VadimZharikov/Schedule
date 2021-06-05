@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WebApplication1.Models.Record>
+@{
+    ViewData["Title"] = "Index";
+}
+@inject GroupContext groups
+
+<h1>Index</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form action="/" method="get">
+    <button onclick="decdate()"></button>
+    <input id="date" type="date" name="Date" value="@Context.Request.Query["Date"]" />
+    <button onclick="incdate()"></button>
+    <select id="group" name="Group">
+        @foreach (var group in groups.Groups)
+        {
+            <option value="@group.GroupName">@group.GroupName</option>
+        }
+    </select>
+</form>
+@section Scripts
+{
+    <script>
+        $('#date').change(function () {
+            $(this).closest('form').submit();
+        });
+        $('#group').change(function () {
+            $(this).closest('form').submit();
+        });
+    </script>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teacher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auditorium)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Group)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teacher)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Auditorium)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Group)
+                </td>
+                <td>
+                    <div asp-authorize asp-roles="Admin, Teacher">
+                        <a asp-action="Edit" asp-route-id="@item.RecordID">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.RecordID">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
