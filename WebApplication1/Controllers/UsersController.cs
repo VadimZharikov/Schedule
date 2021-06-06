@@ -23,7 +23,7 @@ namespace WebApplication1.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Users.Where(user => user.Permission != "SuperAdmin").ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -59,6 +59,11 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_context.Users.Count(users => users.UserName == user.UserName) > 0)
+                {
+                    ModelState.AddModelError("UserNameTaken", "UserName already exists");
+                    return View();
+                }
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -98,7 +103,7 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
-                    if (_context.Users.Count(user => user.Permission == "Admin") <= 1)
+                    if (_context.Users.Count(user => user.Permission == "Admin") <= 1 && user.Permission == "Admin")
                     {
                         return Redirect("/Users/Denied");
                     }
@@ -145,7 +150,7 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            if (_context.Users.Count(user => user.Permission == "Admin") <= 1)
+            if (_context.Users.Count(user => user.Permission == "Admin") <= 1 && user.Permission == "Admin")
             {
                 return Redirect("/Users/Denied");
             }

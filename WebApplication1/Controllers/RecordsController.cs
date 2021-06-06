@@ -32,9 +32,22 @@ namespace WebApplication1.Controllers
         {
             if (date != null)
             {
-                return View(await _context.Records.Where(x => x.Time.Date == date.Date && x.Group == group).ToListAsync());
+                var result = _context.Records.Where(x => x.Time.Date == date.Date && x.Group == group);
+                if (result.Count() == 0 && date != DateTime.MinValue)
+                {
+                    var prevday = _context.Records
+                        .Where(x => x.Time.Date == date.Date.AddDays(-7) && x.Group == group).ToList();
+                    if (prevday.Count != 0)
+                    {
+                        _context.AddRange(prevday
+                        .Select(x => { x.RecordID = 0; x.Time = x.Time.Date.AddDays(7); return x; })
+                        );
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                return View(await result.ToListAsync());
             }
-            return null;
+            return Redirect("/");
         }
 
         // GET: Records/Create
