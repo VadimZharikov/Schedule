@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
 
         [Route("/Login/Login")]
         [HttpPost]
-        public async Task<IActionResult> Validate(string username, string password, string returnUrl)
+        public async Task<IActionResult> Validate(string username, string password, bool isRemembered, string returnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
             User user = _context.Users.FirstOrDefault(user => user.UserName == username && user.Password == password);
@@ -43,12 +43,13 @@ namespace WebApplication1.Controllers
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 var properties = new AuthenticationProperties() {
                     ExpiresUtc = DateTime.UtcNow.AddHours(8),
-                    IsPersistent = true
+                    IsPersistent = isRemembered
                 };
+                TempData["Permission"] = user.Permission;
                 await HttpContext.SignInAsync(claimsPrincipal, properties);
                 if (string.IsNullOrEmpty(returnUrl))
                 {
-                    return Redirect("../Records");
+                    return RedirectToAction("Index", "Records");
                 }
                 return Redirect(returnUrl);
             }
@@ -60,7 +61,8 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return Redirect("/");
+            TempData["Permission"] = "Anonymous";
+            return RedirectToAction("Index", "Records");
         }
 
         public IActionResult Denied()

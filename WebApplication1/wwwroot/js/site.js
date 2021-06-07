@@ -24,6 +24,18 @@ if (document.getElementById('group') != null) {
     }
 }
 
+if (localStorage["Permission"]) {
+    var userColor;
+    if (localStorage["Permission"] == "Admin") {
+        userColor = "#a15eff";
+    }
+    else if (localStorage["Permission"] == "Teacher") {
+        userColor = "#47ffc8";
+    }
+    localStorage["userColor"] = userColor;
+    $('header').css({ "box-shadow": `0 8px 2px 0 ${userColor}` })
+}
+
 function incdate() {
     let date = new Date(Date.parse(document.getElementById('date').value));
     date.setDate(date.getDate() + 1);

@@ -10,8 +10,14 @@
     <h2 class="alert-danger" style="padding:20px">@error</h2>
 }
 <h1>Login page</h1>
-<form action="/Login/Login?ReturnUrl=@System.Net.WebUtility.UrlEncode(returnUrl)" method="post">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" value="Login">
-</form>
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Login/Login?ReturnUrl=@System.Net.WebUtility.UrlEncode(returnUrl)" method="post">
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <label class="control-label">Remember me</label>
+            <input type="checkbox" name="isRemembered" value="true">
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</div>

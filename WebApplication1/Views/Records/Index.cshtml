@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<WebApplication1.Models.Record>
 @{
     ViewData["Title"] = "Index";
+    var role = !string.IsNullOrEmpty(TempData["Permission"] as string) ? TempData["Permission"] as string : "undefined";
+    TempData.Keep("Permission");
 }
 @inject GroupContext groups
-
 <h1>Index</h1>
 <p>
     <a asp-authorize asp-action="Create">Create New</a>
@@ -21,13 +22,24 @@
 </form>
 @section Scripts
 {
+
     <script>
-        $('#date').change(function () {
-            $(this).closest('form').submit();
-        });
-        $('#group').change(function () {
-            $(this).closest('form').submit();
-        });
+    @if (role != "undefined")
+    {
+        @:localStorage["Permission"] = "@role";
+    }
+
+    $('#date').change(function () {
+        $(this).closest('form').submit();
+    });
+    $('#group').change(function () {
+        $(this).closest('form').submit();
+    });
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        @:localStorage.clear();
+    }
     </script>
 }
 <table class="table">
