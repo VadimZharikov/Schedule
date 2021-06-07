@@ -41,7 +41,11 @@ namespace WebApplication1.Controllers
                 claims.Add(new Claim(ClaimTypes.Role, user.Permission));
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                await HttpContext.SignInAsync(claimsPrincipal);
+                var properties = new AuthenticationProperties() {
+                    ExpiresUtc = DateTime.UtcNow.AddHours(8),
+                    IsPersistent = true
+                };
+                await HttpContext.SignInAsync(claimsPrincipal, properties);
                 if (string.IsNullOrEmpty(returnUrl))
                 {
                     return Redirect("../Records");

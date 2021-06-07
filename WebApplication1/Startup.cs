@@ -34,7 +34,7 @@ namespace WebApplication1
                 {
                     options.LoginPath = "/Login/Login";
                     options.AccessDeniedPath = "/Login/Denied";
-                    options.ExpireTimeSpan = TimeSpan.FromHours(12);
+                    options.SlidingExpiration = true;
                 });
 
             services.AddDbContext<RecordContext>(options =>

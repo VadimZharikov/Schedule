@@ -16,10 +16,12 @@ var urlParams;
         urlParams[decode(match[1])] = decode(match[2]);
 })();
 
-const select = document.querySelector('#group').getElementsByTagName('option');
+if (document.getElementById('group') != null) {
+    const select = document.querySelector('#group').getElementsByTagName('option');
 
-for (let i = 0; i < select.length; i++) {
-    if (select[i].value === urlParams['Group']) select[i].selected = true;
+    for (let i = 0; i < select.length; i++) {
+        if (select[i].value === urlParams['Group']) select[i].selected = true;
+    }
 }
 
 function incdate() {
@@ -38,3 +40,17 @@ function ShowPass() {
     if ($('#password').get(0).type == 'password') $('#password').get(0).type = 'text';
     else { $('#password').get(0).type = 'password' }
 }
+
+$(document).ready(function () {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 250) {
+            $('#scroll').fadeIn();
+        } else {
+            $('#scroll').fadeOut();
+        }
+    });
+    $('#scroll').click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 600);
+        return false;
+    });
+});

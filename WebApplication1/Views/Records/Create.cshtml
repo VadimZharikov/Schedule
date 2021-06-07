@@ -26,12 +26,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Teacher" class="control-label"></label>
-                <select asp-for="Teacher" id="group" name="Group">
-                    @foreach (var teacher in teachers.Users.Where(x => x.Permission == "Teacher"))
+                <input asp-for="Teacher" list="Teachers" name="Teacher">
+                <datalist id="Teachers">
+                    @foreach (var teacher in teachers.Users.Where(x => x.Permission != "SuperAdmin"))
                     {
                         <option value="@teacher.UserName">@teacher.UserName</option>
                     }
-                </select>
+                </datalist>
             </div>
             <div class="form-group">
                 <label asp-for="Auditorium" class="control-label"></label>
