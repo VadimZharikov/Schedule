@@ -10,9 +10,9 @@ namespace WebApplication1.Migrations.Group
 {
     [DbContext(typeof(GroupContext))]
     [Migration("20210605065529_init")]
-    partial class init
+    partial class Init
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

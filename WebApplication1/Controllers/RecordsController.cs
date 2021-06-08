@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
@@ -33,10 +29,11 @@ namespace WebApplication1.Controllers
             if (date != null)
             {
                 var result = _context.Records.Where(x => x.Time.Date == date.Date && x.Group == group);
-                if (result.Count() == 0 && date != DateTime.MinValue)
+                if (!result.Any() && date != DateTime.MinValue)
                 {
                     var prevday = _context.Records
-                        .Where(x => x.Time.Date == date.Date.AddDays(-7) && x.Group == group).ToList();
+                        .Where(x => x.Time.Date == date.Date.AddDays(-7) && x.Group == group)
+                        .ToList();
                     if (prevday.Count != 0)
                     {
                         _context.AddRange(prevday

@@ -35,10 +35,12 @@ namespace WebApplication1.Controllers
             User user = _context.Users.FirstOrDefault(user => user.UserName == username && user.Password == password);
             if (user != null)
             {
-                var claims = new List<Claim>();
-                claims.Add(new Claim("username", username));
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, username));
-                claims.Add(new Claim(ClaimTypes.Role, user.Permission));
+                var claims = new List<Claim>
+                {
+                    new Claim("username", username),
+                    new Claim(ClaimTypes.NameIdentifier, username),
+                    new Claim(ClaimTypes.Role, user.Permission)
+                };
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 var properties = new AuthenticationProperties() {
@@ -68,11 +70,6 @@ namespace WebApplication1.Controllers
         public IActionResult Denied()
         {
             return View();
-        }
-
-        private bool RecordExists(int id)
-        {
-            return _context.Users.Any(e => e.UserID == id);
         }
     }
 }

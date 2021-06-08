@@ -61,6 +61,7 @@ $(document).ready(function () {
             $('#scroll').fadeOut();
         }
     });
+    $('#scroll').css("background-color", localStorage["userColor"]);
     $('#scroll').click(function () {
         $("html, body").animate({ scrollTop: 0 }, 600);
         return false;
