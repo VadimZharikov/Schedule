@@ -12,5 +12,6 @@ namespace WebApplication1.Models
             Database.EnsureCreated();
         }
         public DbSet<Group> Groups { get; set; }
+
     }
 }

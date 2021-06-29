@@ -13,5 +13,6 @@ namespace WebApplication1.Models
             Database.EnsureCreated();
         }
         public DbSet<User> Users { get; set; }
+
     }
 }

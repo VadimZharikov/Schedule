@@ -34,6 +34,7 @@ if (localStorage["Permission"]) {
     }
     localStorage["userColor"] = userColor;
     $('header').css({ "box-shadow": `0 8px 2px 0 ${userColor}` })
+    $('.switch').css({ "background-color": userColor })
 }
 
 function incdate() {

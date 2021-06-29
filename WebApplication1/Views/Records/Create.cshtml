@@ -3,29 +3,29 @@
 @inject UserContext teachers
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Создать";
 }
 
-<h1>Create</h1>
+<h1>Создать</h1>
 
-<h4>Record</h4>
+<h4>Запись</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Time" class="control-label"></label>
+                <label class="control-label">Дата</label>
                 <input asp-for="Time" class="form-control" />
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Subject" class="control-label"></label>
+                <label class="control-label">Предмет</label>
                 <input asp-for="Subject" class="form-control" />
                 <span asp-validation-for="Subject" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Teacher" class="control-label"></label>
+                <label class="control-label">Преподаватель</label>
                 <input asp-for="Teacher" list="Teachers" name="Teacher">
                 <datalist id="Teachers">
                     @foreach (var teacher in teachers.Users.Where(x => x.Permission != "SuperAdmin"))
@@ -35,12 +35,12 @@
                 </datalist>
             </div>
             <div class="form-group">
-                <label asp-for="Auditorium" class="control-label"></label>
+                <label class="control-label">Аудитория</label>
                 <input asp-for="Auditorium" class="form-control" />
                 <span asp-validation-for="Auditorium" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Group" class="control-label"></label>
+                <label class="control-label">Группа</label>
                 <select asp-for="Group" id="group" name="Group">
                     @foreach (var group in groups.Groups)
                     {
@@ -49,13 +49,13 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Создать" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад к списку</a>
 </div>
 

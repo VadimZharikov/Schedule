@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -28,13 +29,25 @@ namespace WebApplication1.Controllers
         {
             if (date != null)
             {
-                var result = _context.Records.Where(x => x.Time.Date == date.Date && x.Group == group);
-                if (!result.Any() && date != DateTime.MinValue)
+                var result = date != DateTime.MinValue
+                    ? _context.Records.Where(x => x.Time.Date == date.Date && x.Group == group)
+                    : _context.Records.Where(x => x.Time.Date == DateTime.Now.Date && x.Group == "1ПОБШ");
+                if (!result.Any())
                 {
-                    var prevday = _context.Records
+                    List<Record> prevday;
+                    if (date != DateTime.MinValue)
+                    {
+                        prevday = _context.Records
                         .Where(x => x.Time.Date == date.Date.AddDays(-7) && x.Group == group)
                         .ToList();
-                    if (prevday.Count != 0)
+                    }
+                    else
+                    {
+                        prevday = _context.Records
+                        .Where(x => x.Time.Date == DateTime.Now.Date.AddDays(-7) && x.Group == group)
+                        .ToList();
+                    }
+                    if (prevday.Any())
                     {
                         _context.AddRange(prevday
                         .Select(x => { x.RecordID = 0; x.Time = x.Time.Date.AddDays(7); return x; })

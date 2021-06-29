@@ -2,12 +2,12 @@
 @inject GroupContext groups
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактировать";
 }
 
-<h1>Edit</h1>
+<h1>Редактировать</h1>
 
-<h4>Record</h4>
+<h4>Запись</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,27 +15,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RecordID" />
             <div class="form-group">
-                <label asp-for="Time" class="control-label"></label>
+                <label class="control-label">Дата</label>
                 <input asp-for="Time" class="form-control" />
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Subject" class="control-label"></label>
+                <label class="control-label">Предмет</label>
                 <input asp-for="Subject" class="form-control" />
                 <span asp-validation-for="Subject" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Teacher" class="control-label"></label>
+                <label class="control-label">Преподаватель</label>
                 <input asp-for="Teacher" class="form-control" />
                 <span asp-validation-for="Teacher" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Auditorium" class="control-label"></label>
+                <label class="control-label">Аудитория</label>
                 <input asp-for="Auditorium" class="form-control" />
                 <span asp-validation-for="Auditorium" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Group" class="control-label"></label>
+                <label class="control-label">Группа</label>
                 <span asp-validation-for="Group" class="text-danger"></span>
                 <select asp-for="Group" id="group" name="Group">
                     @foreach (var group in groups.Groups)
@@ -46,13 +46,13 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад к списку</a>
 </div>
 

@@ -34,6 +34,18 @@ html {
     font-size: 16px;
   }
 }
+button {
+    display: inline-block;
+    border: none;
+    margin: 0;
+    text-decoration: none;
+    background: #0069ed;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
 
 .border-top {
   border-top: 1px solid #e5e5e5;
@@ -96,6 +108,16 @@ body {
 }
 
     #scroll:hover {
-        background-color: #4cdaff;
+        background-color: #4c8bf5;
         opacity: 1;
     }
+.switch {
+    height: 26px;
+    width: 26px;
+    background-color: #4c8bf5;
+}
+.query{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}

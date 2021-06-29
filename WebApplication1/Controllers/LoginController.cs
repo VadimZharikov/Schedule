@@ -55,7 +55,7 @@ namespace WebApplication1.Controllers
                 }
                 return Redirect(returnUrl);
             }
-            TempData["Error"] = "Username or Password isn't valid";
+            TempData["Error"] = "Неправильно введен логин или пароль";
             return View("Login");
         }
 

@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<WebApplication1.Models.Record>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Расписание";
     var role = !string.IsNullOrEmpty(TempData["Permission"] as string) ? TempData["Permission"] as string : "undefined";
     TempData.Keep("Permission");
 }
 @inject GroupContext groups
-<h1>Index</h1>
+<h1>Расписание</h1>
 <p>
-    <a asp-authorize asp-action="Create">Create New</a>
+    <a asp-authorize asp-action="Create">Создать новую запись</a>
 </p>
-<form action="/" method="get">
-    <button onclick="decdate()"></button>
+<form class="query" action="/" method="get">
+    <button class="switch" onclick="decdate()"><i class="fas fa-chevron-left"></i></button>
     <input id="date" type="date" name="Date" value="@Context.Request.Query["Date"]" />
-    <button onclick="incdate()"></button>
+    <button class="switch" onclick="incdate()"><i class="fas fa-chevron-right"></i></button>
     <select id="group" name="Group">
         @foreach (var group in groups.Groups)
         {
@@ -28,6 +28,11 @@
     {
         @:localStorage["Permission"] = "@role";
     }
+
+        if (document.getElementById('date').value == "") {
+            let date = new Date().toISOString().replace(/T.*Z/, '');
+            document.getElementById('date').value = date;
+        }
 
     $('#date').change(function () {
         $(this).closest('form').submit();
@@ -46,19 +51,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Time)
+                Время
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Subject)
+                Предмет
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Teacher)
+                Преподаватель
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Auditorium)
+                Аудитория
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Group)
+                Группа
             </th>
             <th></th>
         </tr>
@@ -68,7 +73,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Time)
+                    @item.Time.ToString("t")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Subject)

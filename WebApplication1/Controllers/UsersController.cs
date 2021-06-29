@@ -58,7 +58,7 @@ namespace WebApplication1.Controllers
             {
                 if (_context.Users.Any(users => users.UserName == user.UserName))
                 {
-                    ModelState.AddModelError("UserNameTaken", "UserName already exists");
+                    ModelState.AddModelError("UserNameTaken", "Такой логин уже существует");
                     return View();
                 }
                 _context.Add(user);
