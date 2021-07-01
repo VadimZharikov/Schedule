@@ -9,15 +9,15 @@ using WebApplication1.Models;
 namespace WebApplication1.Migrations.Group
 {
     [DbContext(typeof(GroupContext))]
-    [Migration("20210605065529_init")]
+    [Migration("20210630130554_Init")]
     partial class Init
     {
-        protected void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("WebApplication1.Models.Group", b =>

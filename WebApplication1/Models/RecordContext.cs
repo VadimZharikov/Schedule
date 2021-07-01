@@ -10,7 +10,7 @@ namespace WebApplication1.Models
         }
         public RecordContext(DbContextOptions<RecordContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            Database.Migrate();
         }
         public DbSet<Record> Records { get; set; }
 

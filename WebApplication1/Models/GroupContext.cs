@@ -9,7 +9,7 @@ namespace WebApplication1.Models
         }
         public GroupContext(DbContextOptions<GroupContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            Database.Migrate();
         }
         public DbSet<Group> Groups { get; set; }
 
