@@ -4,7 +4,7 @@
     var role = !string.IsNullOrEmpty(TempData["Permission"] as string) ? TempData["Permission"] as string : "undefined";
     TempData.Keep("Permission");
 }
-@inject GroupContext groups
+@inject DataContext _context
 <h1>Расписание</h1>
 <p>
     <a asp-authorize asp-action="Create">Создать новую запись</a>
@@ -14,7 +14,7 @@
     <input id="date" type="date" name="Date" value="@Context.Request.Query["Date"]" />
     <button class="switch" onclick="incdate()"><i class="fas fa-chevron-right"></i></button>
     <select id="group" name="Group">
-        @foreach (var group in groups.Groups)
+        @foreach (var group in _context.Groups)
         {
             <option value="@group.GroupName">@group.GroupName</option>
         }

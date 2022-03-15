@@ -10,9 +10,9 @@ namespace WebApplication1.Controllers
     [Authorize(Roles = "Admin")]
     public class GroupsController : Controller
     {
-        private readonly GroupContext _context;
+        private readonly DataContext _context;
 
-        public GroupsController(GroupContext context)
+        public GroupsController(DataContext context)
         {
             _context = context;
         }

@@ -31,11 +31,7 @@ namespace WebApplication1
                     options.SlidingExpiration = true;
                 });
 
-            services.AddDbContext<RecordContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
-            services.AddDbContext<UserContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
-            services.AddDbContext<GroupContext>(options =>
+            services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
         }
 

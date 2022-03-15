@@ -11,9 +11,9 @@ namespace WebApplication1.Controllers
 {
     public class RecordsController : Controller
     {
-        private readonly RecordContext _context;
+        private readonly DataContext _context;
 
-        public RecordsController(RecordContext context)
+        public RecordsController(DataContext context)
         {
             _context = context;
         }
@@ -31,21 +31,21 @@ namespace WebApplication1.Controllers
             {
                 var result = date != DateTime.MinValue
                     ? _context.Records.Where(x => x.Time.Date == date.Date && x.Group == group)
-                    : _context.Records.Where(x => x.Time.Date == DateTime.Now.Date && x.Group == "1ПОБШ");
+                    : _context.Records.Where(x => x.Time.Date == DateTime.Now.Date && x.Group == _context.Groups.FirstOrDefault().GroupName);
                 if (!result.Any())
                 {
                     List<Record> prevday;
                     if (date != DateTime.MinValue)
                     {
-                        prevday = _context.Records
+                        prevday = await _context.Records
                         .Where(x => x.Time.Date == date.Date.AddDays(-7) && x.Group == group)
-                        .ToList();
+                        .ToListAsync();
                     }
                     else
                     {
-                        prevday = _context.Records
+                        prevday = await _context.Records
                         .Where(x => x.Time.Date == DateTime.Now.Date.AddDays(-7) && x.Group == group)
-                        .ToList();
+                        .ToListAsync();
                     }
                     if (prevday.Any())
                     {

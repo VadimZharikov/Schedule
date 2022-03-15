@@ -13,9 +13,9 @@ namespace WebApplication1.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly UserContext _context;
+        private readonly DataContext _context;
 
-        public LoginController(UserContext context)
+        public LoginController(DataContext context)
         {
             _context = context;
         }

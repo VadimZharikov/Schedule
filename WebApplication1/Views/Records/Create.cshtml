@@ -1,6 +1,5 @@
 ﻿@model WebApplication1.Models.Record
-@inject GroupContext groups
-@inject UserContext teachers
+@inject DataContext _context
 
 @{
     ViewData["Title"] = "Создать";
@@ -28,7 +27,7 @@
                 <label class="control-label">Преподаватель</label>
                 <input asp-for="Teacher" list="Teachers" name="Teacher">
                 <datalist id="Teachers">
-                    @foreach (var teacher in teachers.Users.Where(x => x.Permission != "SuperAdmin"))
+                    @foreach (var teacher in _context.Users.Where(x => x.Permission != "SuperAdmin"))
                     {
                         <option value="@teacher.UserName">@teacher.UserName</option>
                     }
@@ -42,7 +41,7 @@
             <div class="form-group">
                 <label class="control-label">Группа</label>
                 <select asp-for="Group" id="group" name="Group">
-                    @foreach (var group in groups.Groups)
+                    @foreach (var group in _context.Groups)
                     {
                         <option value="@group.GroupName">@group.GroupName</option>
                     }

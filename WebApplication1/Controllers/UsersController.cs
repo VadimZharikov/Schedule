@@ -10,9 +10,9 @@ namespace WebApplication1.Controllers
     [Authorize(Roles = "Admin, SuperAdmin")]
     public class UsersController : Controller
     {
-        private readonly UserContext _context;
+        private readonly DataContext _context;
 
-        public UsersController(UserContext context)
+        public UsersController(DataContext context)
         {
             _context = context;
         }
