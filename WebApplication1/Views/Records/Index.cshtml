@@ -51,6 +51,9 @@
     <thead>
         <tr>
             <th>
+                №
+            </th>
+            <th>
                 Время
             </th>
             <th>
@@ -62,38 +65,37 @@
             <th>
                 Аудитория
             </th>
-            <th>
-                Группа
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.Time.ToString("t")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subject)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Teacher)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Auditorium)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Group)
-                </td>
-                <td>
-                    <div asp-authorize asp-roles="Admin, Teacher">
-                        <a asp-action="Edit" asp-route-id="@item.RecordID">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.RecordID">Delete</a>
-                    </div>
-                </td>
-            </tr>
+        @{
+            var num = 1;
+            foreach (var item in Model)
+                {
+                <tr>
+                    <td>@num</td>
+                    <td>
+                        @item.Time.ToString("t")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Teacher)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Auditorium)
+                    </td>
+                    <td>
+                        <div asp-authorize asp-roles="Admin, Teacher">
+                            <a asp-action="Edit" asp-route-id="@item.RecordID"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.RecordID"><i class="fas fa-trash-alt text-danger"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            num++;
         }
     </tbody>
 </table>

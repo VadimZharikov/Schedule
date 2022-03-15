@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication1.Models.Subject>
+@inject DataContext _context
+
+@{
+    ViewData["Title"] = "Предметы";
+}
+
+<h1>Предметы</h1>
+
+<p>
+    <a asp-action="Create">Создать новый</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название предмета
+            </th>
+            <th>
+                Часов
+            </th>
+            <th>
+                Название группы
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectName)
+            </td>
+            <td>
+                    @{
+                        var dtNow = DateTime.Now;
+                        var usedHrs = item.Hours - _context.Records.Where(x => x.Subject.SubjectName == item.SubjectName && 
+                            dtNow.AddMonths(-6).Month > x.Time.Month && 
+                            dtNow.AddMonths(+6).Month < x.Time.Month).Count();
+                    }
+                @usedHrs / @Html.DisplayFor(modelItem => item.Hours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.GroupName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubjectId">Редактировать</a> |
+                <a asp-action="Delete" asp-route-id="@item.SubjectId">Удалить</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace WebApplication1.Models
 {
@@ -9,5 +6,6 @@ namespace WebApplication1.Models
     {
         public int GroupID { get; set; }
         public string GroupName { get; set; }
+        public virtual IEnumerable<Subject> Subjects { get; set; }
     }
 }

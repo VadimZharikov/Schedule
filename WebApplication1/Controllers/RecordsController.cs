@@ -29,22 +29,23 @@ namespace WebApplication1.Controllers
         {
             if (date != null)
             {
+                var firstGroup = _context.Groups.FirstOrDefault()?.GroupName;
                 var result = date != DateTime.MinValue
-                    ? _context.Records.Where(x => x.Time.Date == date.Date && x.Group == group)
-                    : _context.Records.Where(x => x.Time.Date == DateTime.Now.Date && x.Group == _context.Groups.FirstOrDefault().GroupName);
+                    ? _context.Records.Where(x => x.Time.Date == date.Date && x.Subject.Group.GroupName == group)
+                    : _context.Records.Where(x => x.Time.Date == DateTime.Now.Date && x.Subject.Group.GroupName == firstGroup);
                 if (!result.Any())
                 {
                     List<Record> prevday;
                     if (date != DateTime.MinValue)
                     {
                         prevday = await _context.Records
-                        .Where(x => x.Time.Date == date.Date.AddDays(-7) && x.Group == group)
+                        .Where(x => x.Time.Date == date.Date.AddDays(-7) && x.Subject.Group.GroupName == group)
                         .ToListAsync();
                     }
                     else
                     {
                         prevday = await _context.Records
-                        .Where(x => x.Time.Date == DateTime.Now.Date.AddDays(-7) && x.Group == group)
+                        .Where(x => x.Time.Date == DateTime.Now.Date.AddDays(-7) && x.Subject.Group.GroupName == group)
                         .ToListAsync();
                     }
                     if (prevday.Any())
@@ -73,7 +74,7 @@ namespace WebApplication1.Controllers
         [Authorize(Roles = "Admin, Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecordID,Time,Subject,Teacher,Auditorium,Group")] Record record)
+        public async Task<IActionResult> Create(Record record)
         {
             if (ModelState.IsValid)
             {

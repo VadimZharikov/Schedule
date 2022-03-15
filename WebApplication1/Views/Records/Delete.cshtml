@@ -21,7 +21,7 @@
             Предмет
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Subject)
+            @Html.DisplayFor(model => model.Subject.SubjectName)
         </dd>
         <dt class = "col-sm-2">
             Преподаватель
@@ -39,7 +39,7 @@
             Группа
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Group)
+            @Html.DisplayFor(model => model.Subject.Group.GroupName)
         </dd>
     </dl>
     

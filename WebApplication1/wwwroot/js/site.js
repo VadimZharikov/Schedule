@@ -24,6 +24,14 @@ if (document.getElementById('group') != null) {
     }
 }
 
+if (document.getElementById('subject') != null) {
+    const select = document.querySelector('#subject').getElementsByTagName('option');
+
+    for (let i = 0; i < select.length; i++) {
+        if (select[i].value === urlParams['Subject']) select[i].selected = true;
+    }
+}
+
 if (localStorage["Permission"]) {
     var userColor;
     if (localStorage["Permission"] == "Admin") {
