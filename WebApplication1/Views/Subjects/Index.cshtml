@@ -34,9 +34,11 @@
             <td>
                     @{
                         var dtNow = DateTime.Now;
+                        var endOfYear = dtNow.Month < 7 ? new DateTime(dtNow.Year, 7, 1) : new DateTime(dtNow.Year + 1, 7, 1);
+                        var startOfYear = dtNow.Month > 8 ? new DateTime(dtNow.Year, 9, 1) : new DateTime(dtNow.Year - 1, 9, 1);
                         var usedHrs = item.Hours - _context.Records.Where(x => x.Subject.SubjectName == item.SubjectName && 
-                            dtNow.AddMonths(-6).Month > x.Time.Month && 
-                            dtNow.AddMonths(+6).Month < x.Time.Month).Count();
+                            endOfYear > x.Time && startOfYear < x.Time)
+                            .Count();
                     }
                 @usedHrs / @Html.DisplayFor(modelItem => item.Hours)
             </td>
