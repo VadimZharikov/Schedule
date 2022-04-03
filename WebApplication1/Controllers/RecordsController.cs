@@ -119,7 +119,7 @@ namespace WebApplication1.Controllers
         [Authorize(Roles = "Admin, Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RecordID,Time,Subject,Teacher,Auditorium,Group")] Record record)
+        public async Task<IActionResult> Edit(int id, Record record)
         {
             if (id != record.RecordID)
             {
