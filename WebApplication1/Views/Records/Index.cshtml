@@ -76,7 +76,7 @@
                 <tr>
                     <td>@num</td>
                     <td>
-                        @item.Time.ToString("t")
+                        @item.Time.ToString("t") - @item.Time.AddMinutes(item.Longevity).ToString("t")
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Subject.SubjectName)
@@ -94,8 +94,8 @@
                         </div>
                     </td>
                 </tr>
-            }
             num++;
+            }
         }
     </tbody>
 </table>

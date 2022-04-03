@@ -1,15 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
-    public class Record
+    public class RecordVM
     {
-        [Key]
         public int RecordID { get; set; }
         [Required]
-        [Column(TypeName = "datetime2")]
+        public DateTime Date { get; set; }
+        [Required]
         public DateTime Time { get; set; }
         [Required]
         public int Longevity { get; set; }
@@ -17,10 +16,8 @@ namespace WebApplication1.Models
         public int SubjectId { get; set; }
         public virtual Subject Subject { get; set; }
         [Required]
-        [Column(TypeName = "nvarchar(50)")]
         public string Teacher { get; set; }
         [Required]
-        [Column(TypeName = "nvarchar(3)")]
         public string Auditorium { get; set; }
     }
 }

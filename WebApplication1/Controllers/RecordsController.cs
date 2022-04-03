@@ -74,8 +74,19 @@ namespace WebApplication1.Controllers
         [Authorize(Roles = "Admin, Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Record record)
+        public async Task<IActionResult> Create(RecordVM recordvm)
         {
+            var record = new Record()
+            {
+                Auditorium = recordvm.Auditorium,
+                Longevity = recordvm.Longevity,
+                Subject = recordvm.Subject,
+                SubjectId = recordvm.SubjectId,
+                Teacher = recordvm.Teacher,
+                Time = recordvm.Date,
+            };
+            record.Time = record.Time.AddHours(recordvm.Time.Hour).AddMinutes(recordvm.Time.Minute);
+
             if (ModelState.IsValid)
             {
                 _context.Add(record);

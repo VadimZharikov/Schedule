@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.Record
+﻿@model WebApplication1.Models.RecordVM
 @inject DataContext _context
 
 @{
@@ -15,17 +15,28 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Дата</label>
-                <input asp-for="Time" class="form-control" />
+                <input type="date" asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Время</label>
+                <input type="time" asp-for="Time" class="form-control" />
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">Продолжительность(мин.)</label>
+                <input asp-for="Longevity" class="form-control" />
+                <span asp-validation-for="Longevity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label class="control-label">Предмет</label>
-                <select asp-for="SubjectId" id="subject" name="SubjectId">
+                <input asp-for="Subject" list="Subjects" name="SubjectId">
+                <datalist id="Subjects">
                     @foreach (var subject in _context.Subjects)
                     {
                         <option value="@subject.SubjectId">@subject.SubjectName - @subject.Group.GroupName</option>
                     }
-                </select>
+                </datalist>
             </div>
             <div class="form-group">
                 <label class="control-label">Преподаватель</label>
@@ -33,7 +44,11 @@
                 <datalist id="Teachers">
                     @foreach (var teacher in _context.Users.Where(x => x.Permission != "SuperAdmin"))
                     {
-                        <option value="@teacher.UserName">@teacher.UserName</option>
+                        if (teacher.Surname != null)
+                        {
+                            var tName =(teacher.Surname + " " + teacher.Name?[0] + ". " + teacher.FName?[0]) + ".";
+                            <option value="@tName">@tName</option>
+                        }   
                     }
                 </datalist>
             </div>
